@@ -10,7 +10,7 @@ export const ExportToExcel = ({ apiData, fileName }) => {
   const exportToCSV = (apiData, fileName) => {
     const ws = XLSX.utils.json_to_sheet(apiData);
     /* cabeceras de las columnas */
-    XLSX.utils.sheet_add_aoa(ws, [["N°","NOMBRE EQUIPO","ID_DEPENDENCIA","DEPENDENCIA","SEDE","TIPO DE ORDENADOR","MARCA","PROCESADOR","TIPO DE PROCESADOR","SISTEMA OPERATIVO","MEMORIA RAM","HDD","CÓDIGO CPU","SERIE CPU","CÓDIGO MONITOR","SERIE MONITOR","CÓDIGO TECLADO","SERIE TECLADO","MARCA MOUSE","SERIE MOUSE","CÓDIGO ESTABILIZADOR","SERIE ESTABILIZADOR","ESTADO","FECHA ADQUISICIÓN","OBSERVACIÓN","ACTUALIZADO POR","FECHA_INVENTARIO"]], { origin: "A1" });
+    XLSX.utils.sheet_add_aoa(ws, [["N°","NOMBRE EQUIPO","ID_DEPENDENCIA","DEPENDENCIA","OFICINA","USUARIO","SEDE","TIPO DE ORDENADOR","MARCA","PROCESADOR","TIPO DE PROCESADOR","SISTEMA OPERATIVO","MEMORIA RAM","HDD","CÓDIGO CPU","SERIE CPU","CÓDIGO MONITOR","SERIE MONITOR","CÓDIGO TECLADO","SERIE TECLADO","MARCA MOUSE","SERIE MOUSE","CÓDIGO ESTABILIZADOR","SERIE ESTABILIZADOR","TIPO CONEXIÓN","ESTADO","FECHA ADQUISICIÓN","OBSERVACIÓN","ACTUALIZADO POR","FECHA_INVENTARIO"]], { origin: "A1" });
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });
