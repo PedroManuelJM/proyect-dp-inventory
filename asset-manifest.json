@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/proyect-dp-inventory/static/css/main.6ada9d3a.css",
-    "main.js": "/proyect-dp-inventory/static/js/main.9b09d4d2.js",
+    "main.js": "/proyect-dp-inventory/static/js/main.22fa89e1.js",
     "static/js/787.f14d3a78.chunk.js": "/proyect-dp-inventory/static/js/787.f14d3a78.chunk.js",
     "static/media/pc.png": "/proyect-dp-inventory/static/media/pc.f675bf8ee61c0e92e139.png",
     "static/media/escudo_peru.svg": "/proyect-dp-inventory/static/media/escudo_peru.a1f770d095f06281c2281f2e3d59b2d3.svg",
     "index.html": "/proyect-dp-inventory/index.html",
     "main.6ada9d3a.css.map": "/proyect-dp-inventory/static/css/main.6ada9d3a.css.map",
-    "main.9b09d4d2.js.map": "/proyect-dp-inventory/static/js/main.9b09d4d2.js.map",
+    "main.22fa89e1.js.map": "/proyect-dp-inventory/static/js/main.22fa89e1.js.map",
     "787.f14d3a78.chunk.js.map": "/proyect-dp-inventory/static/js/787.f14d3a78.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6ada9d3a.css",
-    "static/js/main.9b09d4d2.js"
+    "static/js/main.22fa89e1.js"
   ]
 }
