@@ -1,0 +1,78 @@
+/* ESTILOS PARA EL NAVBAR */
+header{
+    padding: 30px;
+    background: #282c34;
+    height: 40px;
+  }
+  
+  .sidenav {
+    width: 240px;
+    background: #282c34;
+    position: absolute;
+    height: 95vh;
+    padding: 0 30px;
+    left:-100%;
+    transition: all 0.5s;
+  }
+  
+  .sidenav.active{
+    left: 0;
+  }
+  
+  .logo {
+    width: 64px;
+  }
+
+  @keyframes updown {
+    0% {
+      transform: translateY(0);
+      fill: #ffffff;
+    }
+    50% {
+      transform: translateY(-6px);
+      fill: #ffffff;
+      
+    }
+    100% {
+      transform: translateY(0%);
+      fill: #e31818;
+    }
+  }
+  
+  .animation-up-down {
+    animation: updown 3s ease infinite;
+  }
+
+  
+
+  ul{
+    padding: 0;
+  }
+  
+  ul li{
+    list-style-type: none;
+    margin: 10px 0;
+  }
+  ul li a{
+    color:azure;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+  
+  }
+  
+  ul li a:hover,
+  ul li a.active {
+    background: #365ecc;
+    color: #ffffff;
+  }
+  
+  .fa-bars{
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  
+  

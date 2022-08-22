@@ -1,0 +1,213 @@
+/*.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}*/
+.popup{
+  height: 300px;
+  width: 50%;
+  /*background-color: rgb(49, 38, 38);*/
+  /*background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);*/
+  background: rgba(247, 245, 245, 0.932);
+  border-radius: 25px;
+  border: #282c34 5px solid;
+  position: absolute;
+  top: 25%;
+  right: 25%;
+}
+
+.popup-equipo{
+  height: 945px; /* 780px*/
+  width: 70%; /* 50% */
+  /*background-color: rgb(49, 38, 38);*/
+  background: rgba(247, 245, 245, 0.932);
+  /*background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);*/
+  border-radius: 25px;
+  border: #282c34 5px solid;
+  position: absolute;
+  top: 1%;  /* 15 % */
+  right: 15%; /* 25 % */
+}
+
+.popup-pc{
+  height: 480px;
+  width: 50%;
+  /*background-color: rgb(49, 38, 38);*/
+  background: rgba(247, 245, 245, 0.932);
+  /*background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);*/
+  border-radius: 25px;
+  border: #282c34 5px solid;
+  position: fixed;
+  top: 15%;
+  right: 25%;
+}
+
+.popup-barra{
+  height: 680px;
+  width: 70%;
+  /*background-color: rgb(49, 38, 38);*/
+  background: rgba(247, 245, 245, 0.932);
+  /*background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);*/
+  border-radius: 25px;
+  border: #282c34 5px solid;
+  position: fixed;
+  top: 15%;
+  /*right: 50%;*/
+  left: 15%;
+
+}
+.popup-header{
+/*  display: flex;
+  justify-content: space-between;
+  padding: 0 30px 0 15px;
+  border-bottom: 2px solid black;*/
+}
+
+#div1 {
+  overflow:scroll;
+  height:700px;
+  width:auto;
+}
+#div1 table {
+ width:100%;
+ background-color:lightgray;
+}
+
+.cancel{
+  float:right;
+  padding: 5px;
+  cursor: pointer;
+}
+.search{
+  cursor: pointer;
+}
+.add{
+  cursor: pointer;
+}
+.edit{
+  cursor: pointer;
+}
+
+.delete{
+  cursor: pointer;
+}
+
+/* ESTILOS DE LA TARJETA CARD PC CATALOGO */ 
+.pc-card{
+	align-items: start;
+	display: grid;
+	grid-gap: 16px;
+	grid-template-columns: repeat(auto-fit, 400px);
+	justify-content: center;
+}
+
+.contenedor-card{
+  background-image: radial-gradient(circle at 10% 20%, rgb(0, 152, 155) 0.1%, rgb(0, 94, 120) 94.2%);
+  border-radius: 25px ;
+  border: 5px solid #282c34;
+}
+
+.titulopc{
+  font-size: 18px;
+  font-family: Impact;
+}
+
+.image-card-pc{
+  width: 100%;
+  width: 30vh;
+  object-fit:cover;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2{
+  font-size: 1.5rem !important;
+}
+
+.console_head {
+  overflow: hidden;
+  background-color:#50444447;
+  padding: 8px 15px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.circulo{
+  float: left;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-top: 2.5px;
+  margin-right: 0px;
+  box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
+}
+
+.red{
+  background-color: #ff6057;
+}
+.green{
+  background-color: #28ca40;
+}
+.yellow{
+  background-color:#ffc22e;
+}
+
+
+
+/*
+.filter-container button{
+ margin-right: 2rem;
+ min-width: 5rem;
+ padding: 0.5rem 1rem;
+ border: none;
+ background: white;
+ color: rgb(65, 98, 168);
+ border-radius: 1rem;
+ border: 2px solid rgb(28,36, 53);
+ font-weight: bold;
+ cursor: pointer;
+
+}
+.button :active{
+  background:rgb(65, 98, 168) !important;
+  color:white;
+}
+
+*/
