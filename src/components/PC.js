@@ -5,7 +5,8 @@ import cases from '../assets/images/case.png';
 import monitor from '../assets/images/monitor.png';
 import keyboard from '../assets/images/keyboard.png';
 import mouse from '../assets/images/mouse.png';
-
+import calendar from '../assets/images/calendario.png';
+import sede from '../assets/images/sede.png';
 function PC({ pc }) {
     /* MODAL REGISTRAR*/
     const [popup, setPop] = useState(false)
@@ -29,17 +30,29 @@ function PC({ pc }) {
             <div className="container contenedor-card" onClick={() => abrir(pc.idequipo)}>
                 <br></br>
                 <h1 className="titulopc">{pc.nombre_dependencia} </h1>
-                
+                <p  style={{textAlign: "left"}} > <img className="" style={{ width: "32px" }} src={calendar} alt='calendar' />Fecha. inventariado: <b>{pc.fecha_actualizada}</b> </p> 
                 
                 <div className="console_head">
-                    <h2>{pc.nombre_equipo} </h2>
+                    <div className="row">
+                        <div className="col-md-6">
+                        <h2>{pc.nombre_equipo}  </h2>   
+                        </div>
+                        <div className="col-md-6">
+                        <p  style={{textAlign: "right"}} > <img className="" style={{ width: "32px" }} src={sede} alt='sede' /> <b>{pc.sede}</b> </p> 
+                        </div>
+                    
+                    </div>
+                  
+                   
+                  
                     <div className={` 
                                 ${pc.estado === "OPERATIVO" ? 'circulo green' : ''}
                                 ${pc.estado === "INOPERATIVO" ? 'circulo red' : ''}
                                 ${pc.estado === "SIN USO" ? 'circulo yellow' : ''}
                                 ${pc.estado === "Seguridad Informática" ? 'badge badge-pill badge-dark' : ''}
                               
-                        `}> </div>
+                        `}> 
+                    </div>
                     <span className=""> &nbsp; {pc.estado}</span>
                 
                 </div>

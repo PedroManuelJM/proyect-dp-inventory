@@ -65,7 +65,7 @@ const Equipo = () => {
   const [fechaadquisicion,setFechaAdquisicion]= useState('')
   const [observacion,setObservacion]= useState('')
   const [tecnicoinventario,setTecnicoInventario]= useState('')
-  const [fecha,setFecha]= useState('')
+  const [fechaActualizada,setFechaActualizada]= useState('')
  
   //
   const [idequipo,setIdEquipo]=useState('')
@@ -225,7 +225,7 @@ const Equipo = () => {
                    fecha_adquisicion:fechaadquisicion,
                    observacion:observacion,
                    tecnico_inventario:usuario.nombres,
-                   fecha_actualizada:fecha  
+                   fecha_actualizada:fechaActualizada  
     };
     //Asi se agregan todos los parámetros que el servicio requiera (nombre del parámetro , valor que se envía)  
     fetch(rutaServicio, {
@@ -256,7 +256,7 @@ const Equipo = () => {
     let date = new Date();
     let output = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear();
     //console.log(output);
-    setFecha(output)
+    setFechaActualizada(output)
    
   }
 
@@ -342,7 +342,7 @@ const Equipo = () => {
     setFechaAdquisicion(dep.fecha_adquisicion)
     setObservacion(dep.observacion)
     setTecnicoInventario(dep.tecnico_inventario)
-    setFecha(dep.fecha_actualizada)
+   // setFechaActualizada(dep.fecha_actualizada)
   }
 
 const actualizar = (e)=>{
@@ -376,7 +376,7 @@ const actualizar = (e)=>{
                    fecha_adquisicion:fechaadquisicion,
                    observacion:observacion,
                    tecnico_inventario:usuario.nombres,
-                   fecha_actualizada:fecha,
+                   fecha_actualizada:fechaActualizada,
                    idequipo:idequipo
 };
 
@@ -870,7 +870,11 @@ const actualizar = (e)=>{
                     <form onSubmit={actualizar}>
 
                      <hr></hr>
-
+                      <div className="row">
+                        <div className="container" >
+                          <input value={fechaActualizada} style={{ float: "right" ,display:"none"}} disabled />
+                        </div>
+                      </div>
                       <div className="row">
                         <div className="form-group col-md-4">
                           <label for="inputEmail4" className="form-label"> <b>NOMBRE EQUIPO</b> </label>
