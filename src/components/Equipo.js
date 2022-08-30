@@ -13,11 +13,15 @@ import { usuarioLocal,ApiWebUrl } from "../utils";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-
+import DatePicker, {registerLocale} from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import es from 'date-fns/locale/es';
+registerLocale("es", es);
 
 const Equipo = () => {
 
   //const navigate = useNavigate();
+
 
   const [dependencias, setDependencia] = useState([]);  // trae todo los datos y muestra
   const [equipos, setEquipos] = useState([]);  // trae todo los datos y muestra
@@ -66,7 +70,6 @@ const Equipo = () => {
   const [observacion,setObservacion]= useState('')
   const [tecnicoinventario,setTecnicoInventario]= useState('')
   const [fechaActualizada,setFechaActualizada]= useState('')
- 
   //
   const [idequipo,setIdEquipo]=useState('')
  // API - EQUIPOS
@@ -127,7 +130,10 @@ const Equipo = () => {
     setEquipos(resultadosBusqueda);// ACTUALIZAR LA TABLA
   }
 
-
+  const mostrarFecha = fecha=>{
+    const options = {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric'};
+    alert(fecha.toLocaleDateString('es-ES'), options);
+  }
 
   //  6- USAMOS USEEFFECT
   useEffect(() => {
@@ -159,6 +165,7 @@ const Equipo = () => {
   const [popup,setPop]=useState(false)
   const handleClickOpen=()=>{ //ABRIR MODAL
         setPop(!popup)
+        LimpiarFormulario()
   }
 
   const closePopup=()=>{ // CERRAR MODAL
@@ -197,7 +204,9 @@ const Equipo = () => {
   const registrar  =  (e) => {
     e.preventDefault();
     const rutaServicio =  ApiWebUrl + "registrarequipo" ;
-   
+    //const options = {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric'};
+    const fechaformateada = fechaadquisicion.toLocaleDateString('es-ES');
+    
     const data = { nombre_equipo: nombreequipo,
                    iddependencia:iddependencia,
                    oficina:oficina,
@@ -222,7 +231,7 @@ const Equipo = () => {
                    serieestabilizador:serieestabilizador,
                    tipo_conexion:tipoconexion,
                    estado:estado,
-                   fecha_adquisicion:fechaadquisicion,
+                   fecha_adquisicion:fechaformateada,
                    observacion:observacion,
                    tecnico_inventario:usuario.nombres,
                    fecha_actualizada:fechaActualizada  
@@ -585,15 +594,21 @@ const actualizar = (e)=>{
                         </div>
 
                         <div className="form-group col-md-4">
-                          <label for="inputEmail4" className="form-label"> <b>FECHA DE ADQUISICIÓN</b> </label>
-                          <input
-                            value={fechaadquisicion}
-                            onChange={(e) => setFechaAdquisicion(e.target.value)}
-                            type="date"
-                            dateFormat="dd/mm/yyyy" 
-                            className='form-control fecha-adquisicion'
-                            id="fecha-adquisicion"
-                          />
+                        <label for="inputEmail4" className="form-label"> <b>FECHA DE ADQUISICIÓN</b> </label>
+                   
+                        <DatePicker 
+                          selected={fechaadquisicion} 
+                          onChange={(date) => setFechaAdquisicion(date)}
+                          locale="es" className="form-control pickers" 
+                          dateFormat="dd/MM/yyyy"
+                          showYearDropdown
+                          dateFormatCalendar="MMMM"
+                          yearDropdownItemNumber={18}
+                          scrollableYearDropdown
+                          placeholderText="Seleccionar fecha"
+                        />
+
+                                                
                         </div>
 
                         <div className="form-group col-md-4">
@@ -924,16 +939,27 @@ const actualizar = (e)=>{
                         </div>
 
                         <div className="form-group col-md-4">
-                          <label for="inputEmail4" className="form-label"> <b>FECHA DE ADQUISICIÓN</b> </label>
-                          <input
-                            value={fechaadquisicion}
-                            onChange={(e) => setFechaAdquisicion(e.target.value)}
-                            type="date"
-                            dateFormat="dd-mm-yyyy" 
-                            className='form-control fecha-adquisicion'
-                            id="fecha-adquisicion"
-                          />
+                        <label for="inputEmail4" className="form-label"> <b>FECHA DE ADQUISICIÓN</b> </label>
+                
+                        <DatePicker
+                          dateFormat="dd/MM/yyyy"
+                          className="form-control pickers" 
+                          locale="es" 
+                          value={fechaadquisicion}
+                          showYearDropdown
+                          dateFormatCalendar="MMMM"
+                          yearDropdownItemNumber={15}
+                          scrollableYearDropdown
+                          placeholderText="Seleccionar fecha"
+                          onChange={(date) => {
+                            const d = new Date(date).toLocaleDateString();
+                            console.log(d);
+                            setFechaAdquisicion(d);
+                          }}
+                        />
+                      
                         </div>
+
 
                         <div className="form-group col-md-4">
                           <label for="inputDependencia" className="form-label"> <b>ESTADO</b></label>
