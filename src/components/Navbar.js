@@ -3,7 +3,7 @@ import { useNavigate ,Link} from "react-router-dom";
 import { usuarioLocal } from "../utils";
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDoorClosed, faHome, faComputer,faBuilding,faUser } from '@fortawesome/free-solid-svg-icons'
+import { faDoorClosed, faHome, faComputer,faBuilding,faUser ,faChartLine} from '@fortawesome/free-solid-svg-icons'
 import '../styles/navbar.css';
 import logo from '../assets/images/escudo_peru.svg';
 
@@ -70,6 +70,7 @@ const Navbar = ({show})=>{
                     <li> <Link to="/"> <FontAwesomeIcon icon={faHome}/>&nbsp;Inicio </Link></li>
                     <li> <Link to="/dependencia"> <FontAwesomeIcon icon={faBuilding}/> &nbsp;Dependencia </Link></li>
                     <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;Equipo </Link></li>
+                    <li> <Link to="/graficoestado"> <FontAwesomeIcon icon={faChartLine}/>&nbsp;Reporte </Link></li>
                     <button className="btn btn-outline-dark" onClick={CerrarSesion} style={{color:"#FFF"}}>  <FontAwesomeIcon  icon={faDoorClosed}  /> Cerrar Sesión  </button>
                 </ul>
     
