@@ -122,7 +122,7 @@ function Filter({ setActivarDependencia, activarDependencia,setFiltrar,equipos,a
                         </div>
                     </div>:""
                 }
-            </div>
+      </div>
            
 
             

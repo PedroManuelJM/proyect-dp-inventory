@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/proyect-dp-inventory/static/css/main.b46e5490.css",
-    "main.js": "/proyect-dp-inventory/static/js/main.726f67ea.js",
+    "main.css": "/proyect-dp-inventory/static/css/main.6614a467.css",
+    "main.js": "/proyect-dp-inventory/static/js/main.a6da5a5f.js",
     "static/js/787.f14d3a78.chunk.js": "/proyect-dp-inventory/static/js/787.f14d3a78.chunk.js",
     "static/media/pc.png": "/proyect-dp-inventory/static/media/pc.f675bf8ee61c0e92e139.png",
+    "static/media/logo_formato.jpg": "/proyect-dp-inventory/static/media/logo_formato.769716d0f3256125d093.jpg",
     "static/media/escudo_peru.svg": "/proyect-dp-inventory/static/media/escudo_peru.a1f770d095f06281c2281f2e3d59b2d3.svg",
     "index.html": "/proyect-dp-inventory/index.html",
-    "main.b46e5490.css.map": "/proyect-dp-inventory/static/css/main.b46e5490.css.map",
-    "main.726f67ea.js.map": "/proyect-dp-inventory/static/js/main.726f67ea.js.map",
+    "main.6614a467.css.map": "/proyect-dp-inventory/static/css/main.6614a467.css.map",
+    "main.a6da5a5f.js.map": "/proyect-dp-inventory/static/js/main.a6da5a5f.js.map",
     "787.f14d3a78.chunk.js.map": "/proyect-dp-inventory/static/js/787.f14d3a78.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b46e5490.css",
-    "static/js/main.726f67ea.js"
+    "static/css/main.6614a467.css",
+    "static/js/main.a6da5a5f.js"
   ]
 }

@@ -6,6 +6,11 @@ import Catalogo from "./components/Catalogo";
 import GraficoPC from "./components/GraficoPc";
 import GraficoEstadoPC from "./components/GraficoEstadoPC";
 import Login from "./components/Login";
+import FormatoPDF from "./components/FormatoPDF";
+import Mantenimiento from "./components/Mantenimiento";
+import RegistrarEquipo from "./components/RegistrarEquipo";
+import EditarEquipo from "./components/EditarEquipo";
+import RegistrarMantenimiento from "./components/RegistrarMantenimiento";
 
 
 function App() {
@@ -19,8 +24,13 @@ function App() {
           <Route path="/login"  element={<Login/>}/>
           <Route path="/dependencia" element={<Dependencia/>}/>
           <Route path="/equipo" element={<Equipo/>}/>
+          <Route path="/registrarequipo" element={<RegistrarEquipo/>}/>
+          <Route path="/equipo/:id" element={<EditarEquipo/>}/>
+          <Route path="/registrarmantenimiento/:id" element={<RegistrarMantenimiento/>}/>
           <Route path="/grafico" element={ <GraficoPC/>}/>
           <Route path="/graficoestado" element={ <GraficoEstadoPC/>}/>
+          <Route path="/pdf/:id" element={ <FormatoPDF/>}/>
+          <Route path="/mantenimiento" element={ <Mantenimiento/>}/>
         </Routes>
     
      
