@@ -74,5 +74,37 @@ header{
     cursor: pointer;
   }
   
-  
-  
+  .smenu {
+    background: #333;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    max-height: 0;
+}
+
+.smenu ul li {
+    display: block;
+    padding: 16px 26px;
+    color: white;
+    margin: 4px 0;
+    position: relative;
+}
+
+.smenu ul li::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 100%;
+    background: #18dcff;
+    left: 0;
+    top: 0;
+    transition: .3s;
+    opacity: 0;
+}
+
+.smenu ul li:hover::before {
+    opacity: 1;
+}
+
+.item:target .smenu {
+    max-height: 10em;
+}

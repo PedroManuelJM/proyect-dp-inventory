@@ -1,37 +1,59 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate,Link } from "react-router-dom";
 import search from '../assets/images/borrar.png';
-import cancel from '../assets/images/cancel.png';
+
 import add from '../assets/images/add.png';
-import edit from '../assets/images/edit.png';
-import delet from '../assets/images/delete.png';
-import pdf from '../assets/images/pdf.png';
-import mantenimiento from '../assets/images/mantenimiento.png';
-//import robot from '../assets/images/robot.gif';
 import Swal from 'sweetalert2';
-//import ReactHTMLTableToExcel from 'react-html-table-to-excel'; // excel
 import { ExportToExcel } from "./ExportToExcel";
 import { usuarioLocal,ApiWebUrl } from "../utils";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars,faArrowLeft,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import DatePicker, {registerLocale} from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import es from 'date-fns/locale/es';
 import FormatoPDF from "./FormatoPDF";
 import RegistrarEquipo from "./RegistrarEquipo";
+import VistaEquipo from "./VistaEquipo";
+
 registerLocale("es", es);
 
+function searchingTerm(busqueda){
+  return function(elemento){
+    return elemento.nombre_equipo.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.nombre_dependencia.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.nombre_usuario.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.sede.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.codigopatrimonialcpu.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.seriecpu.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.codigopatrimonialmonitor.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.seriemonitor.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.codigopatrimonialteclado.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.serieteclado.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.marcamouse.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.seriemouse.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.estado.toString().toLowerCase().includes(busqueda.toLowerCase())
+        ||elemento.observacion.toString().toLowerCase().includes(busqueda.toLowerCase())
+        || !busqueda;
+  }
+
+}
 const Equipo = () => {
+
+  // PAGINACION
+  
+  const [number, setNumber] = useState(1); // No of pages
+  const [postPerPage] = useState(10); // colocamos cuanto queremos mostrar por página
+
 
   //const navigate = useNavigate();
 
   const [loading,SetLoading]=useState(false);
-  const [dependencias, setDependencia] = useState([]);  // trae todo los datos y muestra
-  const [equipos, setEquipos] = useState([]);  // trae todo los datos y muestra
+  let [dependencias, setDependencia] = useState([]);  // trae todo los datos y muestra
+  let [equipos, setEquipos] = useState([]);  // trae todo los datos y muestra
   // busqueda
   const [TablaEquipos, setTablaEquipos] = useState([]);
-  const [busqueda, setBusqueda]= useState("");
+  const [busqueda, setBusqueda]= useState('');
 
   const fileName = "inventario_equipos"; // here enter filename for your excel file
 
@@ -42,6 +64,51 @@ const Equipo = () => {
   
   const [showNav,setShowNav] =useState(false); // para el navbar
 
+  /* IMPORTANTE PARA LA PAGINACIÓN */
+  const lastPost = number * postPerPage; // ULTIMA PÁGINA
+  const firstPost = lastPost - postPerPage; // PRIMERA PÁGINA
+  const currentPost = equipos.slice(firstPost, lastPost); // TOTAL DE PAGINACIÓN
+  const pageNumber = [];
+
+
+
+  for (let i = 1; i <= Math.ceil(equipos.length / postPerPage); i++) {
+    pageNumber.push(i);
+  }
+
+  const ChangePage = (pageNumber) => {
+    setNumber(pageNumber);
+  };
+
+  useEffect(() => {
+ 
+    //SetLoading(true);
+    //setPop(false);
+    //setPopActualizar(false);
+    //setPopAbrirMantenimiento(false);
+     getEquipos(); // importante
+   // getDependencias();
+    //const timeoutId= setTimeout(()=>  getEquipos()  , 200);
+    //fechaactual();
+    //anioactual();
+  
+    if (usuarioL !== null) {
+      setUsuario(usuarioL)
+    }else{
+      Swal.fire({
+           title: `Página no Permitida`,
+           text: ' ¡ Debes iniciar sesión. !',
+           timer: 1000,
+           icon: "info",
+           timerProgressBar: true,
+     })
+      // direcciona a la página principal
+      navigate('/login')
+    
+    }
+   //getEquipos();
+  //  return ()=>clearTimeout(timeoutId);
+    },[]);
 //  const [nombredependencia, setNombreDependencia ] = useState('')  // variable para registrar
 
   /* DATOS PARA REGISTRAR */
@@ -99,11 +166,11 @@ const Equipo = () => {
          .then(
                 (result) => {
                       //console.log(result);
-                      setEquipos(result);
-                      setTablaEquipos(result); /* para la busqueda */
-                      SetLoading(false);
+                        setEquipos(result)
+                        setTablaEquipos(result); /* para la busqueda */
+                    //  SetLoading(false);
                  }
-              );
+              )
    
  
   };
@@ -123,13 +190,53 @@ const Equipo = () => {
              )
    };
  
-  const handleChange=(e)=>{
+ 
+  const handleChange=e=>{
     setBusqueda(e.target.value);
     filtrar(e.target.value);
   }
   
+  const filteravanzado=(event)=> {
+    setNumber(1);
+    var text = event.target.value
+    console.log(text)
+    const data = TablaEquipos
+    //this.state.listaBackup2
+                
+
+    const newData = data.filter(function (item) {
+
+      const itemDataNomEquipo = item.nombre_equipo.toUpperCase()
+      const itemDataNombDepen= item.nombre_dependencia.toUpperCase()
+      const itemDataNombUsuar= item.nombre_usuario.toUpperCase()
+     // const itemDataSede= item.sede.toUpperCase()
+     // const itemMarcaEquipo= item.marca_equipo.toUpperCase()
+      const itemDatacodigopatrimonialcpu= item.codigopatrimonialcpu.toUpperCase()
+      const itemDataseriecpu= item.seriecpu.toUpperCase()
+      const itemDatacodigopatrimonialmonitor= item.codigopatrimonialmonitor.toUpperCase()
+      const itemDataseriemonitor= item.seriemonitor.toUpperCase()
+      const itemDatacpteclado= item.codigopatrimonialteclado.toUpperCase()
+      const itemDatasrteclado= item.serieteclado.toUpperCase()
+      const itemDatamarcamouse =item.marcamouse.toUpperCase()
+      const itemDataseriemouse= item.seriemouse.toUpperCase()
+      const itemDataObservacion= item.observacion.toUpperCase()
+
+      const campo = itemDataNomEquipo+" "+itemDataNombDepen+" "+itemDataNombUsuar+" "+itemDatacodigopatrimonialcpu+" "+itemDataseriecpu+" "+itemDatacodigopatrimonialmonitor +" "+itemDataseriemonitor+" "+itemDatacpteclado+" "+itemDatasrteclado+" "+itemDatamarcamouse+" "+itemDataseriemouse+" "+itemDataObservacion
+      const textData = text.toUpperCase()
+      return campo.indexOf(textData) > -1
+    })
+    setEquipos(newData)
+    setBusqueda(text)
+    /*
+    this.setState({
+      listaAviso2: newData,
+      textBuscar2: text,
+    })*/
+
+  }
+
   const filtrar=(terminoBusqueda)=>{
-    let resultadosBusqueda=TablaEquipos.filter((elemento) =>{
+    let resultadosBusqueda=equipos.filter((elemento) =>{
       if( elemento.nombre_equipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
         ||elemento.nombre_dependencia.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
         ||elemento.nombre_usuario.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
@@ -159,34 +266,7 @@ const Equipo = () => {
   }*/
 
   //  6- USAMOS USEEFFECT
-  useEffect(() => {
-   
-  SetLoading(true);
-  //setPop(false);
-  //setPopActualizar(false);
-  //setPopAbrirMantenimiento(false);
-  getEquipos(); // importante
-  getDependencias();
-
-  //fechaactual();
-  //anioactual();
-
-  if (usuarioL !== null) {
-    setUsuario(usuarioL)
-  }else{
-    Swal.fire({
-         title: `Página no Permitida`,
-         text: ' ¡ Debes iniciar sesión. !',
-         timer: 1000,
-         icon: "info",
-         timerProgressBar: true,
-   })
-    // direcciona a la página principal
-    navigate('/login')
-  
-  }
-
-  },[]);
+ 
 
  /* MODAL REGISTRAR*/
   /*
@@ -408,7 +488,7 @@ const Equipo = () => {
 
  // limpiar buscador
   const Limpiarbuscador=()=>{ 
-     setBusqueda('');
+     setBusqueda("");
      getEquipos();
   }
 
@@ -527,7 +607,7 @@ const LimpiarFormularioManto=()=>{
   //getEquipos()
 
 }*/
-
+  const total =  equipos.length;
   return (
     <>
     {loading ? "Cargando.....":""}
@@ -537,22 +617,141 @@ const LimpiarFormularioManto=()=>{
     </div>
       <div className="container-fluid">
         <br></br>
-        <span>
-        <Link to="/registrarequipo" style={{textDecoration:"none"}}> <img className="add" src={add} alt='add'  /> <span style={{color:"black"}}>Registrar Equipo</span></Link>
-        </span>
-
-        <div className="containerInput">
-
-          <ExportToExcel apiData={equipos} fileName={fileName} />
-          <input
-            className="form-control inputBuscar"
-            value={busqueda}
-            placeholder="Buscar"
-            onChange={handleChange}
-          />
-          <img className="search" src={search} alt='search' onClick={Limpiarbuscador} />
-
+        <div className="row">
+            <div className="col-md-4">
+               
+               <Link to="/registrarequipo" style={{textDecoration:"none"}}> <img className="add" src={add} alt='add'  /> <span style={{color:"black"}}>Registrar Equipo</span></Link>
+            
+               <ExportToExcel apiData={equipos} fileName={fileName} />
+          
+            </div>
+        <div className="col-md-8">
+            <div className="containerInput">
+                <input className="form-control" placeholder="&#128270; Buscar ...  " value={busqueda}  onChange={(busqueda) => filteravanzado(busqueda)} />
+                <img className="search" src={search} alt='search' onClick={() => Limpiarbuscador()} />
+            </div>
+            </div>
         </div>
+     
+        <div className="my-3 text-center">
+            <button
+              className="rounded-circle" style={{background:"black"}} 
+              onClick={() => setNumber(number - 1)}
+            >
+             <FontAwesomeIcon icon={faArrowLeft} style={{color:"red"}} /> 
+            </button>
+
+            {pageNumber.map((Elem) => {
+              return (
+                <>
+                  <button
+                    className="m-1 text-center btn-sm btn-outline-dark rounded-circle"
+                    onClick={() => ChangePage(Elem)}
+                  >
+                    {Elem}
+                  </button>
+                </>
+              );
+            })}
+            <button
+              className="rounded-circle" style={{background:"black"}} 
+              onClick={() => setNumber(number + 1)}
+            >
+              <FontAwesomeIcon icon={faArrowRight} style={{color:"red"}} /> 
+            </button>
+        </div>
+
+        <h6> # TOTAL DE COMPUTADORAS: {total} </h6>
+        <div className="" id="div1">
+          <table className="table table-striped table-responsive" width="100%" id="table">
+            <thead>
+              <tr>
+                <th style={{ display: "none" }}>ID</th>
+                <th>ACCIONES</th>
+                <th>PDF MANT.</th>
+                <th>REGISTRAR MANTO</th>
+                <th>NOMBRE EQUIPO</th>
+                <th>DEPENDENCIA</th>
+                <th>OFICINA</th>
+                <th>USUARIO</th>
+                <th>SEDE</th>
+                <th>TIPO ORDENADOR</th>
+                <th>MARCA EQUIPO</th>
+                <th>PROCESADOR</th>
+                <th>TIPO PROCESADOR</th>
+                <th>SISTEMA OPERATIVO</th>
+                <th>MEMORIA RAM</th>
+                <th>CAPACIDAD DEL DISCO DURO</th>
+                <th>CÓDIGO P. CPU</th>
+                <th>SERIE. CPU</th>
+                <th>CÓDIGO P. MONITOR</th>
+                <th>SERIE. MONITOR</th>
+                <th>CÓDIGO P. TECLADO</th>
+                <th>SERIE. TECLADO</th>
+                <th>CÓDIGO P. MOUSE</th>
+                <th>SERIE. MOUSE</th>
+                <th>CÓDIGO P. ESTABILIZADOR</th>
+                <th>SERIE. ESTABILIZADOR</th>
+                <th>TIPO CONEXIÓN</th>
+                <th>ESTADO</th>
+                <th>FECHA ADQUISICIÓN</th>
+                <th>OBSERVACIÓN</th>
+                <th>ACTUALIZADO POR</th>
+                <th>FECHA ACTUALIZADA</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+            {currentPost.map((pc)=>{
+              return <VistaEquipo key={pc.idequipo} pc={pc} />
+
+            })}
+            </tbody>
+          </table>
+
+
+          <br></br>
+
+
+     
+          
+        </div>
+
+   
+     
+
+
+      </div>
+    </>
+
+  );
+};
+export default Equipo;
+/*
+
+busqueda
+     <input                              value={busqueda}
+                                              onChange={(ev) => setBusqueda(ev.target.value)}
+                                              type="text"
+                                              required
+                                              className='form-control'
+                                              placeholder="Buscar"
+                                              id="inputBuscar"></input>
+      
+  
+          <img className="search" src={search} alt='search' onClick={() => filtrar(busqueda)}  />
+
+          
+
+{equipos.slice(0,4).map((pc)=>{
+              return <VistaEquipo key={pc.idequipo} pc={pc} />
+
+            })}
+ 
+*/
+
+/*
         <div className="" id="div1">
           <table className="table table-striped table-responsive" width="100%" id="table">
             <thead>
@@ -598,7 +797,7 @@ const LimpiarFormularioManto=()=>{
               {equipos.length === 0 && <div> <h5> No se encontró en la base de datos. </h5> </div>}
 
               
-              {equipos && equipos.map((eq) => (
+              {equipos && equipos.filter(searchingTerm(busqueda)).map((eq) => (
                 
                 <tr className="table-dark" key={eq.idequipo}>
 
@@ -652,19 +851,12 @@ const LimpiarFormularioManto=()=>{
           <br></br>
         </div>
       
-  
-    
 
-  
+*/
 
 
 
-      </div>
-    </>
 
-  );
-};
-export default Equipo;
 
 /*
     <div>

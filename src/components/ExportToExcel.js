@@ -18,9 +18,9 @@ export const ExportToExcel = ({ apiData, fileName }) => {
   };
 
   return (
-    <div className="col-md-6">
-      <button onClick={(e) => exportToCSV(apiData, fileName)} style={{border:"none",background:"none"}}  className="float-right"> <img className="delete" src={excel} alt='excel'/> </button>
+    <>
+      <button onClick={(e) => exportToCSV(apiData, fileName)} style={{border:"none",background:"none",float:"right"}}  className=""> <img className="delete" src={excel} alt='excel' style={{width:"40px"}}/> </button>
 
-    </div>
+    </>
   );
 };
