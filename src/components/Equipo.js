@@ -55,7 +55,7 @@ const Equipo = () => {
   const [TablaEquipos, setTablaEquipos] = useState([]);
   const [busqueda, setBusqueda]= useState('');
 
-  const fileName = "inventario_equipos"; // here enter filename for your excel file
+  const fileName = "REPORTE_EQUIPOS"; // here enter filename for your excel file
 
     /* importante para no permitir mostrar la página */
   const navigate = useNavigate();

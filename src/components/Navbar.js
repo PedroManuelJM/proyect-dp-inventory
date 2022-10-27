@@ -3,7 +3,7 @@ import { useNavigate ,Link} from "react-router-dom";
 import { usuarioLocal } from "../utils";
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDoorClosed, faHome, faComputer,faBuilding,faUser ,faChartLine,faScrewdriverWrench} from '@fortawesome/free-solid-svg-icons'
+import { faDoorClosed, faHome, faComputer,faBuilding,faUser ,faChartLine,faScrewdriverWrench,faChevronDown} from '@fortawesome/free-solid-svg-icons'
 import '../styles/navbar.css';
 import logo from '../assets/images/escudo_peru.svg';
 
@@ -72,19 +72,30 @@ const Navbar = ({show})=>{
                     <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;Equipo </Link></li>
                     <li> <Link to="/mantenimiento"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;Mantenimiento  </Link></li>
                     <li> <Link to="/graficoestado"> <FontAwesomeIcon icon={faChartLine}/>&nbsp;Reporte </Link></li>
-                    <li> 
-               
-
-                    </li>
-                    <li ><a href="#">Servicios</a>
-                    <div class="smenu">
-                      <ul className="">
-                        <li><a href="#">Servicio A</a></li>
-                        <li><a href="#">Servicio B</a></li>
-                        <li><a href="#">Servicio C</a></li>
-                      </ul>
+        
+                    <div class="dropdown" style={{display:"none"}}>
+                      <li class="dropbtn"><FontAwesomeIcon icon={faChartLine}/>&nbsp;Inventario</li>
+                      <div class="dropdown-content">
+                        <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;PC'S</Link></li>
+                        <li> <Link to="/mantenimiento"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;IMPRESORAS </Link></li>     
+                      </div>
                     </div>
-                    </li>
+
+                    <div class="dropdown" style={{display:"none"}}>
+                      <li class="dropbtn"><FontAwesomeIcon icon={faChartLine}/>&nbsp;Mto.Equipos</li>
+                      <div class="dropdown-content">
+                        <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;SEDES </Link></li>
+                        <li> <Link to="/mantenimiento"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;ESTADO </Link></li>
+                      </div>
+                    </div>
+
+                    <div class="dropdown" style={{display:"none"}}>
+                      <button class="dropbtn"><FontAwesomeIcon icon={faChartLine}/>&nbsp;REPORTES</button>
+                      <div class="dropdown-content">
+                        <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;SEDES </Link></li>
+                        <li> <Link to="/mantenimiento"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;ESTADO </Link></li>
+                      </div>
+                    </div>
                     <button className="btn btn-outline-dark" onClick={CerrarSesion} style={{color:"#FFF"}}>  <FontAwesomeIcon  icon={faDoorClosed}  /> Cerrar Sesión  </button>
                 </ul>
     

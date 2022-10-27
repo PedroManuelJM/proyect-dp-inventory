@@ -10,13 +10,19 @@ import Swal from 'sweetalert2';
 import { usuarioLocal, ApiWebUrl } from "../utils";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars,faArrowLeft,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import GraficoMantenimientoFecha from "./GraficoMantenimientoFecha";
+import { ExportToExcel } from "./ExportToExcel";
 
 const Mantenimiento = () => {
 
+  // PAGINACION
+  
+  const [number, setNumber] = useState(1); // No of pages
+  const [postPerPage] = useState(10); // colocamos cuanto queremos mostrar por página
+
   const [lista, setLista] = useState([]);  // trae todo los datos y muestra
-  const [TablaDependencias, setTablaDependencias] = useState([]);
+  const [TablaLista, setTablaLista] = useState([]);
   const [busqueda, setBusqueda]= useState("");
   const [estado,setEstado]= useState("");
   //const [total,setTotal]= useState("");
@@ -34,6 +40,27 @@ const Mantenimiento = () => {
 
   const [showNav,setShowNav] =useState(false); // para el navbar
 
+  let date = new Date();
+  let output = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear();
+
+  const fileName = "REPORTE_MANTENIMIENTO_PREVENTIVO_"+output; // here enter filename for your excel file
+
+  /* IMPORTANTE PARA LA PAGINACIÓN */
+  const lastPost = number * postPerPage; // ULTIMA PÁGINA
+  const firstPost = lastPost - postPerPage; // PRIMERA PÁGINA
+  const currentPost = lista.slice(firstPost, lastPost); // TOTAL DE PAGINACIÓN
+  const pageNumber = [];
+
+
+
+  for (let i = 1; i <= Math.ceil(lista.length / postPerPage); i++) {
+    pageNumber.push(i);
+  }
+
+  const ChangePage = (pageNumber) => {
+    setNumber(pageNumber);
+  };
+
 
   const getDependencias = async () => {
 
@@ -44,7 +71,7 @@ const Mantenimiento = () => {
               (result) => {
                     console.log(result);
                     setLista(result);
-                    setTablaDependencias(result); /* para la busqueda */
+                   // setTablaDependencias(result); /* para la busqueda */
                }
             )
   };
@@ -59,6 +86,7 @@ const Mantenimiento = () => {
                 (result) => {
                         console.log(result);
                         setLista(result);
+                        setTablaLista(result);
                 }
                 )
     } else if(estado === "SIN MANTENIMIENTO"){
@@ -69,6 +97,7 @@ const Mantenimiento = () => {
                   (result) => {
                         console.log(result);
                         setLista(result);
+                        setTablaLista(result);
                    }
                 )
     }
@@ -93,7 +122,7 @@ const Mantenimiento = () => {
     navigate('/login')
   
   }
-
+ 
   },[estado]);
 
   /* PARA LA BUSQUEDA */
@@ -103,9 +132,9 @@ const Mantenimiento = () => {
   }
   
   const filtrar=(terminoBusqueda)=>{
-    let resultadosBusqueda=TablaDependencias.filter((elemento)=>{
-      if(elemento.nombre_dependencia.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) 
-         || elemento.iddependencia.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+    let resultadosBusqueda=TablaLista.filter((elemento)=>{
+      if(elemento.nombre_equipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) 
+        
          ){ // busqueda por nombre dependencia
         return elemento;
       }
@@ -222,41 +251,73 @@ const Mantenimiento = () => {
                     <Navbar show={showNav}/>
                 </div>
                 <div className="container">
-                    <Link to="/registrar" className="btn btn-warning mt-2 mb-2" style={{display:"none"}}>
-                        Registrar Dependencia <i class="fa-solid fa-computer"></i>
-                    </Link>
                     <br></br>
                     <span>
                     <img className="" src={add} alt='add' onClick={handleClickOpen} style={{cursor:"pointer"}} /> <b> Reporte de avance de mantenimiento de PC'S</b>
                     </span>
-                    
-
-                    <button onClick={handleClickOpen} className="btn btn-success" style={{display:"none"}}>REGISTRAR</button> 
-
-
-                    <div className="form-group col-md-4">
-                          <label for="inputDependencia" className="form-label"> <b>ESTADO DE LAS COMPUTADORAS EN MANTENIMIENTO </b></label>
-                          <br></br>
+                    <div className="row">
+                    <label for="inputDependencia" className="form-label"> <b>ESTADO DE LAS COMPUTADORAS EN MANTENIMIENTO </b></label>
+                      <div className="form-group col-md-4">
                           <select className="form-control" id="exampleFormControlSelect1" name="estado"  onChange={(e) => setEstado(e.target.value)} value={estado}  required >
                             <option selected>Seleccione el estado </option>
                             <option value="CON MANTENIMIENTO">CON MANTENIMIENTO</option>
                             <option value="SIN MANTENIMIENTO">SIN MANTENIMIENTO</option>
                           </select>
+                      </div>
+                    </div>
+                 
+                    <div className="row">
+                      
+                      <div className="col-md-4" >
+                        <br></br>
+                        <b> TOTAL DE COMPUTADORAS :</b> <span className="badge bg-success rounded-pill"> {total} </span> 
+                        <ExportToExcel apiData={lista} fileName={fileName} />
+                      </div>
+                      <div className="col-md-8" >
+                      <br></br>
+                        <input
+                                    className="form-control inputBuscar"
+                                    value={busqueda}
+                                    placeholder="&#128270; Buscar ...  " 
+                                    onChange={handleChange}
+                                    style={{float:"right"}}
+                                />
+                     
+                        
+                      </div>
                     </div>
 
-                    <div className="containerInput" style={{display:"none"}}>
-                        <input
-                            className="form-control inputBuscar"
-                            value={busqueda}
-                            placeholder="Búsqueda por dependencia"
-                            onChange={handleChange}
-                        />
-                        <img className="search" src={search} alt='search' onClick={Limpiarbuscador} />
-                    
-                    </div>
-                    <br></br>
-                    <b> TOTAL DE COMPUTADORAS :</b> <span className="badge bg-success rounded-pill"> {total} </span> 
-                    <hr></hr>
+   
+            
+                <div className="my-3 text-center">
+            <button
+              className="rounded-circle" style={{background:"black"}} 
+              onClick={() => setNumber(number - 1)}
+            >
+             <FontAwesomeIcon icon={faArrowLeft} style={{color:"red"}} /> 
+            </button>
+
+            {pageNumber.map((Elem) => {
+              return (
+                <>
+                  <button
+                    className="m-1 text-center btn-sm btn-outline-dark rounded-circle"
+                    onClick={() => ChangePage(Elem)}
+                  >
+                    {Elem}
+                  </button>
+                </>
+              );
+            })}
+            <button
+              className="rounded-circle" style={{background:"black"}} 
+              onClick={() => setNumber(number + 1)}
+            >
+              <FontAwesomeIcon icon={faArrowRight} style={{color:"red"}} /> 
+            </button>
+                </div>
+           
+                <hr></hr>
 
                 <div className="" id="div1">
                     <table className="table table-striped table-responsive" width="100%" id="table">
@@ -274,8 +335,8 @@ const Mantenimiento = () => {
                     </thead>
 
                     <tbody>
-                        {lista.length === 0 && <h5> No se encontró en la base de datos. </h5>}
-                        { lista && lista.map((elemento) => (
+                        {currentPost.length === 0 && <h5> No se encontró en la base de datos. </h5>}
+                        { currentPost && currentPost.map((elemento) => (
                         
                             <tr className="table-dark" key={elemento.idmantenimiento}>
                             <td className="" style={{display:"none"}}> {elemento.idmantenimiento}</td>
@@ -290,7 +351,7 @@ const Mantenimiento = () => {
                             {estado === "CON MANTENIMIENTO"  ?
                               <td>
                               <span>
-                                  <img className="edit" src={edit} alt='edit'/> 
+                                  <img className="edit" src={edit} alt='edit' style={{display:"none"}}/> 
                               </span>
   
                               <span>

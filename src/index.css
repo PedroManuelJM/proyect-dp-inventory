@@ -39,7 +39,7 @@ code {
 }
 */
 /* responsive */
-@media screen and (max-width: 1800px) {
+@media screen and (max-width: 960px) {
   table {
       width:100%;
   }
@@ -51,7 +51,7 @@ code {
   }
   tr td:first-child {
       /*background: #f0f0f0;*/
-      background: #a13636;
+     /* background: #a13636;*/
       font-weight:bold;
       font-size:1.3em;
   }
@@ -73,5 +73,5 @@ code {
     right: 10% !important;
   }
 
-
 }
+

@@ -28,7 +28,7 @@ function VistaEquipo({ pc }) {
                   <td className="" style={{ display: "none" }}> {pc.idequipo}</td>
                   <td className="">
                     <span>
-                    <Link to={`/equipo/${pc.idequipo}`} > <img className="edit" src={edit} alt='edit'/> </Link> 
+                    <Link to={`/equipo/${pc.idequipo}`} ><img className="edit" src={edit} alt='edit'/></Link> 
                     </span>
                     <span>
                       <img className="delete" src={delet} alt='delete'  />
