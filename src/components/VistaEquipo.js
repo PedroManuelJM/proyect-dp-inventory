@@ -15,11 +15,47 @@ import edit from '../assets/images/edit.png';
 import delet from './../assets/images/delete.png';
 import pdf from './../assets/images/pdf.png';
 import mantenimiento from './../assets/images/mantenimiento.png';
-import { Link } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
+import { ApiWebUrl } from "../utils";
+import Swal from 'sweetalert2';
 function VistaEquipo({ pc }) {
     /* MODAL REGISTRAR*/
-
-
+    const navigate = useNavigate();
+    const eliminar = (eq) => 
+    {
+    
+      Swal.fire({
+        title:  `Esta seguro de eliminar `+eq.nombre_equipo+`? `,
+        //text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si'
+      }).then((result) => {
+        if (result.isConfirmed) {
+  
+          const rutaServicio =  ApiWebUrl + `eliminarequipo/${eq.idequipo}`;
+   
+          fetch(rutaServicio, {
+            method: 'DELETE',
+          })
+            .then(
+              () => {
+                  //getEquipos(); // importante
+                //  navigate('/')   
+                window.location.reload(); 
+              }
+            )
+  
+          Swal.fire(
+            'Eliminado satisfactoriamente'
+          )
+        }
+      })
+  
+    };
 
     return (
     
@@ -31,7 +67,7 @@ function VistaEquipo({ pc }) {
                     <Link to={`/equipo/${pc.idequipo}`} ><img className="edit" src={edit} alt='edit'/></Link> 
                     </span>
                     <span>
-                      <img className="delete" src={delet} alt='delete'  />
+                    <img className="delete" src={delet} alt='delete' onClick={() => eliminar(pc)} />
                     </span>
                   </td>
                   <td> <Link to={`/pdf/${pc.idequipo}`} className="" target="_blank"> <img className="edit" src={pdf} alt='pdf'/> </Link></td>     

@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/proyect-dp-inventory/static/css/main.85086676.css",
-    "main.js": "/proyect-dp-inventory/static/js/main.ab91f126.js",
+    "main.js": "/proyect-dp-inventory/static/js/main.8a213a42.js",
     "static/js/787.f14d3a78.chunk.js": "/proyect-dp-inventory/static/js/787.f14d3a78.chunk.js",
     "static/media/pc.png": "/proyect-dp-inventory/static/media/pc.f675bf8ee61c0e92e139.png",
     "static/media/logo_formato.jpg": "/proyect-dp-inventory/static/media/logo_formato.769716d0f3256125d093.jpg",
     "static/media/escudo_peru.svg": "/proyect-dp-inventory/static/media/escudo_peru.a1f770d095f06281c2281f2e3d59b2d3.svg",
     "index.html": "/proyect-dp-inventory/index.html",
     "main.85086676.css.map": "/proyect-dp-inventory/static/css/main.85086676.css.map",
-    "main.ab91f126.js.map": "/proyect-dp-inventory/static/js/main.ab91f126.js.map",
+    "main.8a213a42.js.map": "/proyect-dp-inventory/static/js/main.8a213a42.js.map",
     "787.f14d3a78.chunk.js.map": "/proyect-dp-inventory/static/js/787.f14d3a78.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.85086676.css",
-    "static/js/main.ab91f126.js"
+    "static/js/main.8a213a42.js"
   ]
 }

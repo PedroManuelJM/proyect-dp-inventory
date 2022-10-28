@@ -69,7 +69,7 @@ function RegistrarEquipo() {
         e.preventDefault();
         const rutaServicio =  ApiWebUrl + "registrarequipo" ;
         //const options = {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric'};
-        const fechaformateada = fechaadquisicion.toLocaleDateString('es-ES');
+       // const fechaformateada = fechaadquisicion.toLocaleDateString('es-ES');
         
         const data = { nombre_equipo: nombreequipo,
                        iddependencia:iddependencia,
@@ -95,7 +95,8 @@ function RegistrarEquipo() {
                        serieestabilizador:serieestabilizador,
                        tipo_conexion:tipoconexion,
                        estado:estado,
-                       fecha_adquisicion:fechaformateada,
+                      //fecha_adquisicion:fechaformateada,
+                      fecha_adquisicion:fechaadquisicion,
                        observacion:observacion,
                        tecnico_inventario:usuario.nombres,
                        fecha_actualizada:fechaActualizada  
@@ -253,7 +254,13 @@ function RegistrarEquipo() {
                         
                                 <DatePicker
                                 selected={fechaadquisicion} 
-                                onChange={(date) => setFechaAdquisicion(date)}
+                               
+                                onChange={(date) => {
+                                   // const d = new Date(date).toLocaleDateString();
+                                    date.toLocaleDateString('es-ES');
+                                    console.log(date);
+                                    setFechaAdquisicion(date);
+                                }}
                                 locale="es" className="form-control pickers" 
                                 dateFormat="dd/MM/yyyy"
                                 showYearDropdown

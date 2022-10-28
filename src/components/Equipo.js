@@ -165,7 +165,7 @@ const Equipo = () => {
       .then( res => res.json() )
          .then(
                 (result) => {
-                      //console.log(result);
+                        //console.log(result);
                         setEquipos(result)
                         setTablaEquipos(result); /* para la busqueda */
                     //  SetLoading(false);
