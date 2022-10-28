@@ -167,6 +167,7 @@ function EditarEquipo() {
              setSerieMouse(val.seriemouse);
              setCodEstabilizador(val.codigopatrimonialestabilizador);
              setSerieEstabilizador(val.serieestabilizador);
+             setTipoConexion(val.tipo_conexion)
              setObservacion(val.observacion);
              setIdEquipo(id);
        
