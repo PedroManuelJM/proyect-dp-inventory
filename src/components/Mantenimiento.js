@@ -19,12 +19,13 @@ const Mantenimiento = () => {
   // PAGINACION
   
   const [number, setNumber] = useState(1); // No of pages
-  const [postPerPage] = useState(10); // colocamos cuanto queremos mostrar por página
+  const [postPerPage] = useState(15); // colocamos cuanto queremos mostrar por página
 
   const [lista, setLista] = useState([]);  // trae todo los datos y muestra
   const [TablaLista, setTablaLista] = useState([]);
   const [busqueda, setBusqueda]= useState("");
   const [estado,setEstado]= useState("");
+  const [anio,setAnio]= useState("");
   //const [total,setTotal]= useState("");
   // variableS para registrar el formulario
   const [nombredependencia, setNombreDependencia ] = useState('')  // variable para registrar
@@ -76,10 +77,11 @@ const Mantenimiento = () => {
             )
   };
 
-  const Mantenimiento= (estado) => {
+  const Mantenimiento= (estado,anio) => {
     if(estado === "CON MANTENIMIENTO"){
         
         const rutaServicio =ApiWebUrl + "pc_con_mantenimiento";
+        //const rutaServicio =ApiWebUrl +  `pc_con_mantenimiento2/${anio}`;
         fetch(rutaServicio)
         .then( res => res.json() )
         .then(
@@ -100,14 +102,55 @@ const Mantenimiento = () => {
                         setTablaLista(result);
                    }
                 )
-    }
+    }else if(estado === "BAJA"){
+      const rutaServicio =ApiWebUrl + "pc_baja";
+      fetch(rutaServicio)
+      .then( res => res.json() )
+         .then(
+                (result) => {
+                      console.log(result);
+                      setLista(result);
+                      setTablaLista(result);
+                 }
+              )
+  }
    
+}
+
+const Aviso= (estado) => {
+  if(estado === "CON MANTENIMIENTO"){
+    Swal.fire({
+      text: 'SE MUESTRA LOS EQUIPOS OPERATIVOS CON MANTENIMIENTO',
+      timer: 1800,
+      icon: "info",
+      timerProgressBar: true,}
+    )
+  }
+
+  else if(estado === "SIN MANTENIMIENTO"){
+    Swal.fire({
+      text: 'SE MUESTRA LOS EQUIPOS OPERATIVOS SIN MANTENIMIENTO',
+      timer: 1800,
+      icon: "info",
+      timerProgressBar: true,}
+    )
+  }
+  else if(estado === "BAJA"){
+    Swal.fire({
+      text: 'SE MUESTRA LOS EQUIPOS QUE TIENEN FALLA POR PLACA , FUENTE DE PODER , DISCO DURO O POR ANTIGUEDAD',
+      timer: 1800,
+      icon: "info",
+      timerProgressBar: true,}
+    )
+  }
 }
 
 //  6- USAMOS USEEFFECT
   useEffect(() => {
  // getDependencias(); // importante
-  Mantenimiento(estado)
+  Mantenimiento(estado,anio)
+  Aviso(estado)
+
   if (usuarioL !== null) {
     setUsuario(usuarioL)
   }else{
@@ -123,7 +166,7 @@ const Mantenimiento = () => {
   
   }
  
-  },[estado]);
+  },[estado,anio]);
 
   /* PARA LA BUSQUEDA */
   const handleChange=e=>{
@@ -256,15 +299,38 @@ const Mantenimiento = () => {
                     <img className="" src={add} alt='add' onClick={handleClickOpen} style={{cursor:"pointer"}} /> <b> Reporte de avance de mantenimiento de PC'S</b>
                     </span>
                     <div className="row">
-                    <label for="inputDependencia" className="form-label"> <b>ESTADO DE LAS COMPUTADORAS EN MANTENIMIENTO </b></label>
-                      <div className="form-group col-md-4">
-                          <select className="form-control" id="exampleFormControlSelect1" name="estado"  onChange={(e) => setEstado(e.target.value)} value={estado}  required >
-                            <option selected>Seleccione el estado </option>
-                            <option value="CON MANTENIMIENTO">CON MANTENIMIENTO</option>
-                            <option value="SIN MANTENIMIENTO">SIN MANTENIMIENTO</option>
-                          </select>
-                      </div>
+                     
+                     <div className="col-md-6">
+                      <label for="inputDependencia" className="form-label"> 
+                      <b>ESTADO DE LAS COMPUTADORAS EN MANTENIMIENTO </b></label>
+                        <div className="form-group col-md-5">
+                            <select className="form-control" id="exampleFormControlSelect1" name="estado"  onChange={(e) => setEstado(e.target.value)} value={estado}  required >
+                              <option selected>Seleccione el estado </option>
+                              <option value="CON MANTENIMIENTO">CON MANTENIMIENTO</option>
+                              <option value="SIN MANTENIMIENTO">SIN MANTENIMIENTO</option>
+                              <option value="BAJA">BAJA</option>
+                            </select>
+                        </div>
+                     </div>
+
+                     <div className="col-md-6" style={{display:"none"}}>
+                     <div className="form-group col-md-5">
+                     <label for="inputAnio" className="form-label"> 
+                      <b>AÑO DE MANTENIMIENTO </b></label>
+                            <select className="form-control" id="exampleFormControlSelect1" name="anio"  onChange={(e) => setAnio(e.target.value)} value={anio}  required >
+                              <option selected>Seleccione fecha</option>
+                              <option value="2022">2022</option>
+                              <option value="2023">2023</option>
+                              <option value="2024">2024</option>
+                              <option value="2025">2025</option>
+                              <option value="2026">2026</option>
+                              <option value="2027">2027</option>
+                            </select>
+                        </div>
+
+                     </div>
                     </div>
+           
                  
                     <div className="row">
                       
