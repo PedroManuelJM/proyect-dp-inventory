@@ -236,6 +236,7 @@ const Equipo = () => {
   }
 
   const filtrar=(terminoBusqueda)=>{
+    setNumber(1);
     let resultadosBusqueda=equipos.filter((elemento) =>{
       if( elemento.nombre_equipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
         ||elemento.nombre_dependencia.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
@@ -611,124 +612,132 @@ const LimpiarFormularioManto=()=>{
   return (
     <>
     {loading ? "Cargando.....":""}
-    <div className=''>
-        <header> <FontAwesomeIcon icon={faBars} style={{color:"#fff"}} onClick={()=> setShowNav(!showNav)} /> </header>
-        <Navbar show={showNav}/>
-    </div>
-      <div className="container-fluid">
-        <br></br>
-        <div className="row">
-            <div className="col-md-4">
-               
-               <Link to="/registrarequipo" style={{textDecoration:"none"}}> <img className="add" src={add} alt='add'  /> <span style={{color:"black"}}>Registrar Equipo</span></Link>
+      <div className=''>
+          <header> <FontAwesomeIcon icon={faBars} style={{color:"#fff"}} onClick={()=> setShowNav(!showNav)} /> </header>
+          <Navbar show={showNav}/>
+      </div>
+      <br></br>
+      <div className="container contenedor-tabla">
+          <div className="row">
+              <div className="col-md-4">
+                
+                <Link to="/registrarequipo" style={{textDecoration:"none"}}> <img className="add" src={add} alt='add'  /> <span style={{color:"black"}}>Registrar Equipo</span></Link>
+              
+                <ExportToExcel apiData={equipos} fileName={fileName} />
             
-               <ExportToExcel apiData={equipos} fileName={fileName} />
-          
-            </div>
-        <div className="col-md-8">
-            <div className="containerInput">
-                <input className="form-control" placeholder="&#128270; Buscar ...  " value={busqueda}  onChange={(busqueda) => filteravanzado(busqueda)} />
-                <img className="search" src={search} alt='search' onClick={() => Limpiarbuscador()} />
-            </div>
-            </div>
-        </div>
-     
-        <div className="my-3 text-center">
-            <button
-              className="rounded-circle" style={{background:"black"}} 
-              onClick={() => setNumber(number - 1)}
-            >
-             <FontAwesomeIcon icon={faArrowLeft} style={{color:"red"}} /> 
-            </button>
+              </div>
+          <div className="col-md-5">
+              <div className="containerInput">
+                  <input className="form-control" placeholder="&#128270; Buscar ...  " value={busqueda}  onChange={(busqueda) => filteravanzado(busqueda)} />
+                  <img className="search" src={search} alt='search' onClick={() => Limpiarbuscador()} />
+              </div>
+              </div>
+          </div>
+      
+          <div className="my-1 text-center">
+              <button
+                className="rounded-circle" style={{background:"black"}} 
+                onClick={() => setNumber(number - 1)}
+              >
+              <FontAwesomeIcon icon={faArrowLeft} style={{color:"red"}} /> 
+              </button>
 
-            {pageNumber.map((Elem) => {
-              return (
-                <>
-                  <button
-                    className="m-1 text-center btn-sm btn-outline-dark rounded-circle"
-                    onClick={() => ChangePage(Elem)}
-                  >
-                    {Elem}
-                  </button>
-                </>
-              );
-            })}
-            <button
-              className="rounded-circle" style={{background:"black"}} 
-              onClick={() => setNumber(number + 1)}
-            >
-              <FontAwesomeIcon icon={faArrowRight} style={{color:"red"}} /> 
-            </button>
-        </div>
+              {pageNumber.map((Elem) => {
+                return (
+                  <>
+                    <button
+                      className="m-1 text-center btn-sm btn-outline-dark rounded-circle"
+                      onClick={() => ChangePage(Elem)}
+                    >
+                      {Elem}
+                    </button>
+                  </>
+                );
+              })}
+              <button
+                className="rounded-circle" style={{background:"black"}} 
+                onClick={() => setNumber(number + 1)}
+              >
+                <FontAwesomeIcon icon={faArrowRight} style={{color:"red"}} /> 
+              </button>
+          </div>
 
-        <h6> # TOTAL DE COMPUTADORAS: {total} </h6>
-        <div className="" id="div1">
-          <table className="table table-striped table-responsive" width="100%" id="table">
-            <thead>
-              <tr>
-                <th style={{ display: "none" }}>ID</th>
-                <th>ACCIONES</th>
-                <th>PDF MANT.</th>
-                <th>REGISTRAR MANTO</th>
-                <th>NOMBRE EQUIPO</th>
-                <th>DEPENDENCIA</th>
-                <th>OFICINA</th>
-                <th>USUARIO</th>
-                <th>SEDE</th>
-                <th>TIPO ORDENADOR</th>
-                <th>MARCA EQUIPO</th>
-                <th>PROCESADOR</th>
-                <th>TIPO PROCESADOR</th>
-                <th>SISTEMA OPERATIVO</th>
-                <th>MEMORIA RAM</th>
-                <th>CAPACIDAD DEL DISCO DURO</th>
-                <th>CÓDIGO P. CPU</th>
-                <th>SERIE. CPU</th>
-                <th>CÓDIGO P. MONITOR</th>
-                <th>SERIE. MONITOR</th>
-                <th>CÓDIGO P. TECLADO</th>
-                <th>SERIE. TECLADO</th>
-                <th>CÓDIGO P. MOUSE</th>
-                <th>SERIE. MOUSE</th>
-                <th>CÓDIGO P. ESTABILIZADOR</th>
-                <th>SERIE. ESTABILIZADOR</th>
-                <th>TIPO CONEXIÓN</th>
-                <th>ESTADO</th>
-                <th>FECHA ADQUISICIÓN</th>
-                <th>OBSERVACIÓN</th>
-                <th>ACTUALIZADO POR</th>
-                <th>FECHA ACTUALIZADA</th>
-              </tr>
+          <h6> # TOTAL DE COMPUTADORAS: {total} </h6>
+          <div className="" id="div1">
+            <table className="table table-striped table-responsive" width="100%" id="table">
+              <thead>
+                <tr>
+                  <th style={{ display: "none" }}>ID</th>
+                  <th>ACCIONES</th>
+                  <th>PDF MANT.</th>
+                  <th>REGISTRAR MANTO</th>
+                  <th>NOMBRE EQUIPO</th>
+                  <th>DEPENDENCIA</th>
+                  <th>OFICINA</th>
+                  <th>USUARIO</th>
+                  <th>SEDE</th>
+                </tr>
 
-            </thead>
+              </thead>
 
-            <tbody>
-            {currentPost.map((pc)=>{
-              return <VistaEquipo key={pc.idequipo} pc={pc} />
+              <tbody>
+              {currentPost.map((pc)=>{
+                return <VistaEquipo key={pc.idequipo} pc={pc} />
 
-            })}
-            </tbody>
-          </table>
+              })}
+              </tbody>
+            </table>
+       
+            
+          </div>
 
-
-          <br></br>
-
-
-     
-          
-        </div>
-
-   
-     
+    
+      
 
 
       </div>
+      <br></br>
+            
     </>
 
   );
 };
 export default Equipo;
 /*
+     <th>ACCIONES</th>
+                  <th>PDF MANT.</th>
+                  <th>REGISTRAR MANTO</th>
+                  <th>NOMBRE EQUIPO</th>
+                  <th>DEPENDENCIA</th>
+                  <th>OFICINA</th>
+                  <th>USUARIO</th>
+                  <th>SEDE</th>
+                  <th>TIPO ORDENADOR</th>
+                  <th>MARCA EQUIPO</th>
+                  <th>PROCESADOR</th>
+                  <th>TIPO PROCESADOR</th>
+                  <th>SISTEMA OPERATIVO</th>
+                  <th>MEMORIA RAM</th>
+                  <th>CAPACIDAD DEL DISCO DURO</th>
+                  <th>CÓDIGO P. CPU</th>
+                  <th>SERIE. CPU</th>
+                  <th>CÓDIGO P. MONITOR</th>
+                  <th>SERIE. MONITOR</th>
+                  <th>CÓDIGO P. TECLADO</th>
+                  <th>SERIE. TECLADO</th>
+                  <th>CÓDIGO P. MOUSE</th>
+                  <th>SERIE. MOUSE</th>
+                  <th>CÓDIGO P. ESTABILIZADOR</th>
+                  <th>SERIE. ESTABILIZADOR</th>
+                  <th>TIPO CONEXIÓN</th>
+                  <th>ESTADO</th>
+                  <th>FECHA ADQUISICIÓN</th>
+                  <th>OBSERVACIÓN</th>
+                  <th>ACTUALIZADO POR</th>
+                  <th>FECHA ACTUALIZADA</th>
+
+
+
 
 busqueda
      <input                              value={busqueda}

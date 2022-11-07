@@ -12,8 +12,12 @@ code {
     monospace;
 }
 */
+body{
+  background: aliceblue !important;
+}
 #inicioSesion{
-  background: linear-gradient(to right, #2b858b, #040303c9);
+  background-image: url("./assets/images/dp-inventario.jpg");
+ /* background-image: 'assets/images/dp-inventario.jpg';/*linear-gradient(to right, #2b858b, #040303c9);*/
   height: 970px;
 }
 
@@ -55,7 +59,7 @@ code {
       font-weight:bold;
       font-size:1.3em;
   }
-  tbody td {
+  tbody td tr { /* tbody td*/
       display: block;
       text-align:center;
   }
@@ -74,4 +78,17 @@ code {
   }
 
 }
+/*ESTILOS DE LA TABLA */
+thead{
+  background: rgb(1, 107, 156) !important;
+  border:1px solid black !important;
+  color: white !important;
+}
 
+
+
+.contenedor-tabla{
+  background: #e8eeefb8;
+  padding: 1em;
+  border: 1px solid #726a6a7d;
+}

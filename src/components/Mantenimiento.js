@@ -396,6 +396,7 @@ const Aviso= (estado) => {
                         <th>AÑO</th>
                         <th>REALIZADO POR</th>
                         <th>OBSERVACIÓN</th>
+                       
                         </tr>
 
                     </thead>
@@ -403,11 +404,11 @@ const Aviso= (estado) => {
                     <tbody>
                         {currentPost.length === 0 && <h5> No se encontró en la base de datos. </h5>}
                         { currentPost && currentPost.map((elemento) => (
-                        
+                         <>
                             <tr className="table-dark" key={elemento.idmantenimiento}>
                             <td className="" style={{display:"none"}}> {elemento.idmantenimiento}</td>
                             <td className=""> {elemento.nombre_equipo}</td>
-                            <td className=""> {elemento.oficina}</td>
+                            <td className=""> {elemento.oficina}</td>  
                             <td className=""> {elemento.fecha_mantenimiento}</td>
                             <td className=""> {elemento.anio}</td>
                             <td className=""> {elemento.tecnico_mantenimiento}</td>
@@ -434,6 +435,8 @@ const Aviso= (estado) => {
                             
                             </tr>
                         
+                        
+                         </>
                         ))}
 
                         

@@ -3,7 +3,7 @@ import { useNavigate ,Link} from "react-router-dom";
 import { usuarioLocal } from "../utils";
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDoorClosed, faHome, faComputer,faBuilding,faUser ,faChartLine,faScrewdriverWrench,faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import { faDoorClosed, faHome, faComputer,faBuilding,faUser ,faChartLine,faScrewdriverWrench,faChevronDown, faTag, faSquare} from '@fortawesome/free-solid-svg-icons'
 import '../styles/navbar.css';
 import logo from '../assets/images/escudo_peru.svg';
 
@@ -66,9 +66,19 @@ const Navbar = ({show})=>{
             <span style={{color:"#FFF"}}>&nbsp; &nbsp;&nbsp; {usuario.apellidos} </span>
             </>
             : <> </>}
-                <ul>
+                <ul style={{paddingLeft:"0px"}}>
                     <li> <Link to="/"> <FontAwesomeIcon icon={faHome}/>&nbsp;Inicio </Link></li>
-                    <li> <Link to="/dependencia"> <FontAwesomeIcon icon={faBuilding}/> &nbsp;Dependencia </Link></li>
+
+                    <div className="dropdown" style={{display:"none"}}>
+                      <button className="dropbtn"><FontAwesomeIcon icon={faSquare}/>&nbsp;MANTENIMIENTO</button>
+                      <div className="dropdown-content">
+                        <li> <Link to="/sede"> <FontAwesomeIcon icon={faBuilding}/>&nbsp;SEDE </Link></li>
+                        <li> <Link to="/marca"> <FontAwesomeIcon icon={faTag}/>&nbsp;MARCA</Link></li>
+                        <li> <Link to="/modelo"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;MODELO</Link></li>
+                      </div>
+                    </div>
+
+                    <li> <Link to="/dependencia"> <FontAwesomeIcon icon={faBuilding}/>&nbsp;Dependencia </Link></li>
                     <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;Equipo </Link></li>
                     <li> <Link to="/mantenimiento"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;Mantenimiento  </Link></li>
                     <li> <Link to="/graficoestado"> <FontAwesomeIcon icon={faChartLine}/>&nbsp;Reporte </Link></li>
@@ -89,13 +99,7 @@ const Navbar = ({show})=>{
                       </div>
                     </div>
 
-                    <div class="dropdown" style={{display:"none"}}>
-                      <button class="dropbtn"><FontAwesomeIcon icon={faChartLine}/>&nbsp;REPORTES</button>
-                      <div class="dropdown-content">
-                        <li> <Link to="/equipo"> <FontAwesomeIcon icon={faComputer}/>&nbsp;SEDES </Link></li>
-                        <li> <Link to="/mantenimiento"> <FontAwesomeIcon icon={faScrewdriverWrench}/>&nbsp;ESTADO </Link></li>
-                      </div>
-                    </div>
+                   
                     <button className="btn btn-outline-dark" onClick={CerrarSesion} style={{color:"#FFF"}}>  <FontAwesomeIcon  icon={faDoorClosed}  /> Cerrar Sesión  </button>
                 </ul>
     

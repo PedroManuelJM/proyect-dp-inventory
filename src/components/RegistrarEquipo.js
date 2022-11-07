@@ -71,7 +71,7 @@ function RegistrarEquipo() {
         //const options = {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric'};
       
   
-        const fechaformateada = fechaadquisicion.toLocaleDateString('es-ES');
+     //   const fechaformateada = fechaadquisicion.toLocaleDateString('es-ES');
         
         const data = { nombre_equipo: nombreequipo,
                        iddependencia:iddependencia,
@@ -97,8 +97,8 @@ function RegistrarEquipo() {
                        serieestabilizador:serieestabilizador,
                        tipo_conexion:tipoconexion,
                        estado:estado,
-                       fecha_adquisicion:fechaformateada,
-                      //fecha_adquisicion:fechaadquisicion,
+                       //fecha_adquisicion:fechaformateada,
+                       fecha_adquisicion:fechaadquisicion,
                        observacion:observacion,
                        tecnico_inventario:usuario.nombres,
                        fecha_actualizada:fechaActualizada  
@@ -255,16 +255,22 @@ function RegistrarEquipo() {
                                 <label htmlFor="inputEmail4" className="form-label"> <b>FECHA DE ADQUISICIÓN</b> </label>
                         
                                 <DatePicker
-                                selected={fechaadquisicion} 
-                                onChange={(date) => setFechaAdquisicion(date)}
-                                locale="es" className="form-control pickers" 
                                 dateFormat="dd/MM/yyyy"
+                                className="form-control pickers" 
+                                locale="es" 
+                                value={fechaadquisicion}
                                 showYearDropdown
                                 dateFormatCalendar="MMMM"
-                                yearDropdownItemNumber={18}
+                                yearDropdownItemNumber={15}
                                 scrollableYearDropdown
                                 placeholderText="Seleccionar fecha"
+                                onChange={(date) => {
+                                    const d1 = new Date(date).toLocaleDateString('es-ES');
+                                    console.log(d1);
+                                    setFechaAdquisicion(d1);
+                                }}
                                 />
+
 
                                                         
                                 </div>

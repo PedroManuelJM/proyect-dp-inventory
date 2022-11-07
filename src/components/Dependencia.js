@@ -229,14 +229,16 @@ const Dependencia = () => {
              Registrar Dependencia <i class="fa-solid fa-computer"></i>
          </Link>
         <br></br>
+        
+        <div className="contenedor-tabla">
+
         <span>
           <img className="add" src={add} alt='add' onClick={handleClickOpen} /> Registrar Dependencia
         </span>
         
+        <button onClick={handleClickOpen} className="btn btn-success" style={{display:"none"}}>REGISTRAR</button> 
 
-         <button onClick={handleClickOpen} className="btn btn-success" style={{display:"none"}}>REGISTRAR</button> 
-
-          <div className="containerInput">
+        <div className="containerInput">
              <input
                   className="form-control inputBuscar"
                   value={busqueda}
@@ -245,52 +247,54 @@ const Dependencia = () => {
               />
              <img className="search" src={search} alt='search' onClick={Limpiarbuscador} />
           
-          </div>
+        </div>
 
-      <div className="" id="div1">
-        <table className="table table-striped table-responsive" width="100%" id="table">
-          <thead>
-            <tr>
-              <th style={{display:"none"}}>ID</th>
-              <th>DEPENDENCIA</th>
-            </tr>
+        <div className="" id="div1">
+          <table className="table table-striped table-responsive" width="100%" id="table">
+            <thead>
+              <tr>
+                <th style={{display:"none"}}>ID</th>
+                <th>DEPENDENCIA</th>
+                <th>ACCIONES</th>
+              </tr>
 
-          </thead>
+            </thead>
 
-          <tbody>
-            {dependencias.length === 0 && <h5> No se encontró en la base de datos. </h5>}
-            { dependencias && dependencias.map((dep) => (
-             
-                <tr className="table-dark" key={dep.iddependencia}>
+            <tbody>
+              {dependencias.length === 0 && <h5> No se encontró en la base de datos. </h5>}
+              { dependencias && dependencias.map((dep) => (
+              
+                  <tr className="table-dark" key={dep.iddependencia}>
 
-                  <td className="" style={{display:"none"}}> {dep.iddependencia}</td>
-                  <td className=""> {dep.nombre_dependencia}</td>
-                  <td className="">
+                    <td className="" style={{display:"none"}}> {dep.iddependencia}</td>
+                    <td className=""> {dep.nombre_dependencia}</td>
+                    <td className="">
+                    
+                    <Link to={`/editar/${dep.iddependencia}`} className="" style={{textDecoration:"none",display:"none"}} > Editar </Link>
+                    <span>
+                        <img className="edit" src={edit} alt='edit' onClick={() => abrireditar(dep)}/> 
+                    </span>
+                    <button onClick={() => eliminar(dep.iddependencia , dep.nombre_dependencia)} className="btn btn-success" style={{display:"none"}}>Eliminar</button>
+                    
+                    <span>
+                        <img className="delete" src={delet} alt='delete' onClick={() => eliminar(dep.iddependencia , dep.nombre_dependencia)}/> 
+                    </span>
+
+                    </td>
                   
-                   <Link to={`/editar/${dep.iddependencia}`} className="" style={{textDecoration:"none",display:"none"}} > Editar </Link>
-                   <span>
-                      <img className="edit" src={edit} alt='edit' onClick={() => abrireditar(dep)}/> 
-                   </span>
-                   <button onClick={() => eliminar(dep.iddependencia , dep.nombre_dependencia)} className="btn btn-success" style={{display:"none"}}>Eliminar</button>
-                   
-                   <span>
-                      <img className="delete" src={delet} alt='delete' onClick={() => eliminar(dep.iddependencia , dep.nombre_dependencia)}/> 
-                   </span>
+                  </tr>
+                
+              ))}
 
-                  </td>
-                 
-                </tr>
-               
-            ))}
+              
+            </tbody>
+          </table>
+          <br></br>
+          
 
-            
-          </tbody>
-        </table>
-        <br></br>
-        
+        </div>
 
-      </div>
-
+        </div>
    
 
             <div>
